@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AIプロンプト販売完全ロードマップ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 50%, #3d3d3d 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 20px 60px;
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 50%, #000000 100%);
+            border-left: 4px solid #ffd700;
+            margin-bottom: 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: #ffd700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+        }
+
+        .header .subtitle {
+            font-size: 1.1rem;
+            color: #cccccc;
+            margin-bottom: 25px;
+        }
+
+        .cta-button {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000000;
+            padding: 15px 35px;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            text-decoration: none;
+            display: inline-block;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.6);
+        }
+
+        .section {
+            background: linear-gradient(135deg, #2a2a2a 0%, #1f1f1f 100%);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border-left: 4px solid #ffd700;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .section h2 {
+            color: #ffd700;
+            font-size: 1.8rem;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section h3 {
+            color: #ffffff;
+            font-size: 1.3rem;
+            margin: 25px 0 15px 0;
+            padding-left: 15px;
+            border-left: 3px solid #ffd700;
+        }
+
+        .gold-text {
+            color: #ffd700;
+            font-weight: bold;
+        }
+
+        .step-number {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .feature-list li {
+            padding: 10px 0;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+
+        .feature-list li::before {
+            content: "✓";
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+
+        .code-block {
+            background: #1a1a1a;
+            border: 1px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            box-shadow: inset 0 2px 10px rgba(255, 215, 0, 0.1);
+        }
+
+        .price-box {
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            color: #000000;
+            padding: 15px 25px;
+            border-radius: 10px;
+            display: inline-block;
+            font-weight: bold;
+            margin: 10px 5px;
+            box-shadow: 0 3px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .warning {
+            background: linear-gradient(135deg, #3d1a1a 0%, #2d1414 100%);
+            border-left: 4px solid #ff6b6b;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .warning h3 {
+            color: #ff6b6b;
+            border-left-color: #ff6b6b;
+        }
+
+        .final-section {
+            background: linear-gradient(135deg, #2d2d2d 0%, #1a1a1a 100%);
+            border-radius: 15px;
+            padding: 40px;
+            text-align: center;
+            border: 2px solid #ffd700;
+            box-shadow: 0 10px 30px rgba(255, 215, 0, 0.3);
+        }
+
+        .icon-placeholder {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(45deg, #ffd700, #ffed4e);
+            border-radius: 50%;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #000000;
+            box-shadow: 0 5px 20px rgba(255, 215, 0, 0.4);
+            padding: 20px;
+        }
+
+        .icon-placeholder svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🌟 AIプロンプト販売完全ガイド ✨</h1>
+            <p class="subtitle">ペーパーバックから電子書籍まで完全対応</p>
+            <button class="cta-button">6つのステップで簡単収益化！</button>
+        </div>
+
+        <div class="section">
+            <h2><span class="step-number">1</span>高需要ジャンルを狙撃する</h2>
+            <p>AIプロンプト販売で成功するには、<span class="gold-text">需要の高いジャンル</span>への参入が最重要です。Kindle Direct Publishing（KDP）にログインして収益化を始めましょう。Amazonアカウントがあれば簡単に始められます！</p>
+            
+            <ul class="feature-list">
+                <li>Amazonアカウントでログイン可能</li>
+                <li>初期費用は完全無料</li>
+                <li>世界中のAmazonで販売開始</li>
+                <li>ペーパーバック・電子書籍両対応</li>
+            </ul>
+
+            <h3>🔥 最も収益性の高いカテゴリー</h3>
+            <ul class="feature-list">
+                <li><span class="gold-text">業務効率化系</span>：議事録自動要約、商品説明文生成、面接対策シミュレーション</li>
+                <li><span class="gold-text">マーケティング系</span>：SNS投稿テンプレート、セールスコピー、広告文作成</li>
+                <li><span class="gold-text">クリエイティブ系</span>：画像生成、ロゴデザイン、ブランディング素材</li>
+                <li><span class="gold-text">業界特化型</span>：美容サロン、飲食店、不動産など現場直結ソリューション</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><span class="step-number">2</span>プロンプト品質の最適化</h2>
+            
+            <h3>⭐ 高品質プロンプトの4大要素</h3>
+            <ul class="feature-list">
+                <li><span class="gold-text">再現性</span>：誰が使用しても同一レベルの成果を実現</li>
+                <li><span class="gold-text">カスタマイズ性</span>：商品名やテーマの差し替えで幅広く応用可能</li>
+                <li><span class="gold-text">出力例の明示</span>：完成イメージを提示して購入者の不安を解消</li>
+                <li><span class="gold-text">継続的アップデート</span>：AI技術の進歩に合わせた定期的な改良</li>
+            </ul>
+
+            <div class="price-box">💰 単品：500円前後</div>
+            <div class="price-box">💰 セット商品：4,000〜5,000円</div>
+            <div class="price-box">💰 サブスク型：月額制で安定収益</div>
+        </div>
+
+        <div class="section">
+            <h2><span class="step-number">3</span>実践的プロンプト例集</h2>
+            
+            <h3>📱 SNSマーケティング系（Instagram運用）</h3>
+            <div class="code-block">
+あなたは SNS マーケティングの専門家です。
+以下の商品情報を魅力的にプレゼンテーションするInstagram投稿文を作成してください。
+
+【投稿要件】
+- 文字数：100字以内
+- 冒頭：キャッチーで興味を引くフレーズ
+- 絵文字：2個以上使用
+- ハッシュタグ：関連性の高いタグを5個選定
+
+【商品情報】
+・商品名：プレミアム低糖質チョコレート
+・特徴：砂糖完全不使用、ダイエット中も罪悪感なし
+・ターゲット：健康志向の女性
+            </div>
+            
+            <p><span class="gold-text">販売タイトル例</span>：「Instagram運用者必携！売上直結キャプション自動生成プロンプト」</p>
+
+            <h3>💼 ビジネス系（キャリア支援）</h3>
+            <div class="code-block">
+あなたは経験豊富な就職活動アドバイザーです。
+以下の情報を基に、企業の人事担当者に強い印象を与える自己PR文を300字以内で作成してください。
+
+【構成要件】
+必ず「結論→具体的経験→学習内容→企業貢献への意欲」の論理的な流れで記述
+
+【入力項目】
+・経験：大学時代に学級委員長として活動
+・習得スキル：チームマネジメント能力
+・志望業界：ITコンサルティング業界
+            </div>
+            
+            <p><span class="gold-text">販売タイトル例</span>：「就活生必見！30秒で完成する高評価自己PR生成プロンプト」</p>
+        </div>
+
+        <div class="section">
+            <h2><span class="step-number">4</span>多角的プロモーション展開</h2>
+            
+            <h3>🚀 プラットフォーム最適活用</h3>
+            <ul class="feature-list">
+                <li><span class="gold-text">海外市場</span>：PromptBase、Gumroad（市場規模が大きい）</li>
+                <li><span class="gold-text">国内市場</span>：PromptWorks、note、Brain（初心者におすすめ）</li>
+            </ul>
+
+            <h3>📱 SNS活用術</h3>
+            <ul class="feature-list">
+                <li><span class="gold-text">X（旧Twitter）/ Threads</span>：プロンプト出力例の定期公開</li>
+                <li><span class="gold-text">Instagram</span>：ビジュアル重視の成果物展示</li>
+                <li><span class="gold-text">TikTok / YouTube Shorts</span>：プロンプト実演動画で高エンゲージメント</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2><span class="step-number">5</span>差別化とニッチ市場開拓</h2>
+            
+            <ul class="feature-list">
+                <li><span class="gold-text">未開拓ジャンルへの先行参入</span>：競合が少ない専門分野への集中投資</li>
+                <li><span class="gold-text">多言語対応</span>：英語圏向けコンテンツ展開</li>
+                <li><span class="gold-text">超ニッチ特化</span>：「飲食店向け多言語メニュー生成」等の特殊需要対応</li>
+            </ul>
+        </div>
+
+        <div class="warning">
+            <h2><span class="step-number">6</span>重要な注意事項</h2>
+            
+            <h3>⚠️ 法的・倫理的留意点</h3>
+            <ul class="feature-list">
+                <li><span class="gold-text">著作権遵守</span>：既存キャラクター・商標権のある素材は使用禁止</li>
+                <li><span class="gold-text">オリジナリティ確保</span>：他者のプロンプトの無断複製は避ける</li>
+                <li><span class="gold-text">定期メンテナンス</span>：AI技術進歩により継続的更新が必須</li>
+                <li><span class="gold-text">副業規則</span>：会社員は就業規則・税務処理に要注意</li>
+            </ul>
+        </div>
+
+        <div class="final-section">
+            <h2>✅ 成功への総括</h2>
+            <p>AIプロンプト販売市場はまさに<span class="gold-text">黎明期</span>。早期参入により、圧倒的な先行者利益を獲得するチャンスです。</p>
+            
+            <h3>🔥 成功の3大要素</h3>
+            <ul class="feature-list">
+                <li>需要の高いジャンルへの集中投資</li>
+                <li>再現性と実用性を兼ね備えたプロンプト開発</li>
+                <li>SNS・SEOを駆使した多面的集客戦略</li>
+            </ul>
+
+            <p><span class="gold-text">「AI技術の可能性 × あなたの専門知識・経験」</span>を掛け合わせることで、他では手に入らない唯一無二の価値を創造できます。</p>
+
+            <h2>🔥 特別なご案内</h2>
+            <p>ここまでお読みいただき、心より感謝申し上げます。</p>
+            <p><span class="gold-text">「本格的な発信活動を始めたい」「既に発信しているが、なかなか成果が出ない」</span></p>
+            <p>そんなあなたへ特別なサポートをご用意いたしました。</p>
+            <p>私のこれまでの実践ノウハウを惜しみなくお伝えする<span class="gold-text">「くろ先生オープンチャット」</span>を開設いたします。</p>
+            
+            <a href="https://line.me/ti/g2/DmMUoFL8DukQISpoyh3LrCXmoQBZywoj6zj6Ag?utm_source=invitation&utm_medium=link_copy&utm_campaign=default" class="cta-button" target="_blank">オープンチャットはここから</a>
+            
+            <div class="icon-placeholder">
+                <img src="https://github.com/bowtruthsgt-maker/-kiro/raw/ab2137366831813da0c11e14da26d0aadc6bb578/%E3%81%8F%E3%82%8D%E5%85%88%E7%94%9F%E3%82%A2%E3%82%A4%E3%82%B3%E3%83%B3.webp" alt="くろ先生アイコン" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover;">
+            </div>
+            
+            <h3 style="color: #ffd700; margin-top: 10px;">くろ先生 ✨</h3>
+        </div>
+    </div>
+</body>
+</html>
